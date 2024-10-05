@@ -187,7 +187,7 @@ function deleteCustomer(id) {
             setResultMessage("Record removed")
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            errorHandling(xhr, ajaxOptions, thrownError, form)
+            errorHandling(xhr, ajaxOptions, thrownError)
         },
         dataType: "json",
         contentType: "application/json"
