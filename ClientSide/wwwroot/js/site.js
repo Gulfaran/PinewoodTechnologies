@@ -33,7 +33,7 @@ function addTable(data, id, actionidname) {
         // add a row for the headings could be further updated to use prettier names than the variable name
         // also sort functions can be binded at this point too
         $.each(data[0], function (name, value) {
-            row += '<td>'+name+'</td>'
+            row += '<th>'+name+'</th>'
         });
         row += '</tr>'
         table.append(row)

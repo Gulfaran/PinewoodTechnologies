@@ -6,11 +6,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <div>
-        <div id="resultsummary"></div>
+    <h1 class="PageTitle">PINEWOOD TECHNOLOGIES CRM</h1>
+    <div id="resultsummary"></div>
+    <div class="formlistwrapper">
         <form id="CreateEditCustomer" method="post" enctype="text/plain">
-
             @Html.HiddenFor(m => m.customer.Id)
             <table>
                 <tr>
@@ -126,12 +125,14 @@
                 <tr>
                     <td>
                         <button type="submit" >Add/Save</button>
+                    </td>
+                    <td>
                         <button type="button" onclick="ClearForm(this)">Clear</button>
                     </td>
                 </tr>
             </table>
         </form>
+        <table id="CustomerList">
+        </table>
     </div>
-    <table id="CustomerList">
-    </table>
 </div>

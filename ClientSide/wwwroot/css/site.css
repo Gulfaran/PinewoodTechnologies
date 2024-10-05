@@ -20,3 +20,125 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.container{
+    width:80vw !important;
+    max-width:unset
+}
+.formlistwrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+form{
+    text-align:start;
+}
+
+form table{
+    table-layout:fixed;
+}
+
+form table td{
+    padding:5px;
+}
+
+form>table td:first-child{
+    font-weight:700;
+}
+    form>table td:last-child {
+        color: red;
+        font-weight:bolder;
+    }
+
+    form>table input {
+        box-shadow: 0px 0px 4px 0px black;
+        border: none;
+        border-radius: 5px;
+    }
+
+button {
+    background-color: #3DD1E7;
+    border: 0 solid #E5E7EB;
+    box-sizing: border-box;
+    color: #000000;
+    display: flex;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: .75rem 1.65rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none #000000 solid;
+    text-decoration-thickness: auto;
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+button:focus {
+    outline: 0;
+}
+
+button:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #000000;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+}
+
+button:hover:after {
+    bottom: 2px;
+    left: 2px;
+}
+
+@media (min-width: 768px) {
+    .button {
+        padding: .75rem 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+table button{
+
+}
+
+table{
+    table-layout:fixed;
+    margin-top:20px
+}
+
+
+    table tr th {
+        background-color: blanchedalmond;
+        font-weight: 700;
+        padding: 5px;
+        text-transform: uppercase;
+    }
+
+    table tr:last-child td:last-child{
+        padding-left:15px
+    }
+
+#resultsummary {
+    color: cadetblue;
+    font-weight: 700;
+    border: 1px solid;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 0px black;
+}
+
+#resultsummary:empty{
+    display:none
+}
