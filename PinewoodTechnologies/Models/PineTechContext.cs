@@ -19,7 +19,8 @@ public partial class PineTechContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=DESKTOP-L8E8BNI\\MSQL2019;Initial Catalog=PineTech;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=False");
+        //Todo : Add the connection string for the table
+        optionsBuilder.UseSqlServer();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
