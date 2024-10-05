@@ -108,7 +108,6 @@ function addTable(data, id, actionidname) {
         $.each(tabledata[0], function (name, value) {
             if (name == data.defaultorder) {
                 row += '<th class="tbl_sort_slct">' + name + '</th>'
-                table.attr('data-order', data.defaultorder)
             } else { 
                 row += '<th>' + name + '</th>'
             }
@@ -116,6 +115,7 @@ function addTable(data, id, actionidname) {
         row += '</tr>'
         table.append(row)
 
+        table.attr('data-order', data.defaultorder)
         $('#' + id + ' th').on('click', function () {            
             table.attr('data-order', $(this).text())
             getList(table)
