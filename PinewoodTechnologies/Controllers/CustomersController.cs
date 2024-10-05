@@ -26,10 +26,24 @@ namespace PinewoodTechnologies.Controllers
         }
 
         // GET: api/Customers
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        [HttpGet("{page}/{size}/{sort}")]
+        public ActionResult GetCustomers(int page = 1, int size = 10, string sort = "Id")
         {
-            return await _context.Customers.ToListAsync();
+            int totalpages = (int)Math.Ceiling(_context.Customers.Count()/(decimal)size);
+
+            var result = new
+            {
+                noofpages = totalpages,
+                defaultorder = sort,
+                data = _context.Customers.ToList().ToPagedList(page>totalpages?totalpages:page, size, sort)
+            };
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public ActionResult GetCustomers()
+        {
+            return GetCustomers(1,10,"Id");
         }
 
         // GET: api/Customers/5

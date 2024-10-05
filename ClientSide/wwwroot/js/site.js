@@ -8,38 +8,121 @@ $(document).ready(function () {
     form.onsubmit = submitted.bind(form);
 
     //populate the customer table on load
-    getList();
+    getData();
 
 });
 
-function getList() {
-    $.get(api, function (data) {
+function getData(p, e, s) {
+    var callapi = api;
+    if (p) {
+        callapi += '/' + p + '/' + e + '/' + s
+    }
+    $.get(callapi, function (data) {
         // Call the function used to populate the table dynamically based on the information in the data returned
         addTable(data,'CustomerList','id')
     }, 'json');
 }
 
+function getList(table) {
+    var s = table.attr('data-order')
+    var e = table.attr('data-entries')
+    var p = table.attr('data-page')
+
+    if (!s) {
+        s = '';
+    }
+
+    if (!p) {
+        p=1
+    }
+
+    if (!e) {
+        e=10
+    }
+
+    getData(p, e, s)
+}
+
 // Take an data object, table ID of the table to populate and an actionid name if applicable used in populating the id for edit and delete events
 function addTable(data, id, actionidname) {
     var table = $('#' + id);
+    var noofpages = data.noofpages;
 
+    if ($('#' + id + 'EntriesPerPage').length==0) {
+        var dropdown = $('<select></select>').attr('id', id + 'EntriesPerPage');
+        // Add options to the dropdown
+        var options = [10, 30, 50];
+        $.each(options, function (index, value) {
+            dropdown.append($('<option></option>').attr('value', value).text(value));
+        });
+        table.after(dropdown)
+        table.attr('data-entries', 10)
+        dropdown.change(function () {
+            table.attr('data-entries', $(this).val())
+            getList(table)
+        });
+
+        dropdown.before('<span class="tbl_entries_lb">Show</span>')
+        dropdown.after('<span class="tbl_entries_lb">per page</span>')
+    }
+
+    var pagedropdown = $('#' + id + 'Page');
+
+    if (pagedropdown.length == 0) {
+        pagedropdown = $('<select></select>').attr('id', id + 'Page');
+        // Add options to the dropdown
+        table.after(pagedropdown)
+        table.attr('data-page',1)
+        pagedropdown.change(function () {
+            table.attr('data-page', $(this).val())
+            getList(table)
+        });
+        pagedropdown.before('<span class="tbl_page_lb">Page</span>')
+        pagedropdown.after('<span class="tbl_page_lb" id="totalpages"></span>')
+    }
+
+    pagedropdown.empty()
+    for (var i = 1; i <= noofpages; i++) {
+        pagedropdown.append($('<option></option>').attr('value', i).text(i));
+    }
+    var selected = table.attr('data-page')
+
+    $('#totalpages').text('of ' + noofpages)
+
+    if (selected > noofpages) {
+        selected = noofpages
+    }
+
+    pagedropdown.val(selected);
     // empty the table first
     table.html('')
 
+    var tabledata = data.data;
+
     // as long as there is data to be processed
-    if (data.length > 0) {
+    if (tabledata.length > 0) {
         var row = '<tr>';
 
         // add a row for the headings could be further updated to use prettier names than the variable name
         // also sort functions can be binded at this point too
-        $.each(data[0], function (name, value) {
-            row += '<th>'+name+'</th>'
+        $.each(tabledata[0], function (name, value) {
+            if (name == data.defaultorder) {
+                row += '<th class="tbl_sort_slct">' + name + '</th>'
+                table.attr('data-order', data.defaultorder)
+            } else { 
+                row += '<th>' + name + '</th>'
+            }
         });
         row += '</tr>'
         table.append(row)
 
+        $('#' + id + ' th').on('click', function () {            
+            table.attr('data-order', $(this).text())
+            getList(table)
+        });
+
         // add the rows containing actual information
-        $.each(data, function (i, v) {
+        $.each(tabledata, function (i, v) {
             var drow = '<tr>';
             var id = 0;
             $.each(v, function (name, value) {
@@ -100,7 +183,7 @@ function deleteCustomer(id) {
         type: "DELETE",
         url: api + '/' + id,
         success: function () {
-            getList();
+            getList($('#CustomerList'));
             setResultMessage("Record removed")
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -133,7 +216,7 @@ function submitted(event) {
         dataType: "json",
         contentType: "application/json",
         success: function () {
-            getList(); form[0].reset(), setResultMessage("Record has been successfuly saved")
+            getList($('#CustomerList')); form[0].reset(), setResultMessage("Record has been successfuly saved")
         },
         error: function (xhr, ajaxOptions, thrownError) {
             errorHandling(xhr, ajaxOptions, thrownError, form)

@@ -127,8 +127,11 @@ table{
         text-transform: uppercase;
     }
 
-    table tr:last-child td:last-child{
+    table tr td:last-child{
         padding-left:15px
+    }
+    table th{
+        cursor:pointer
     }
 
 #resultsummary {
@@ -142,3 +145,21 @@ table{
 #resultsummary:empty{
     display:none
 }
+
+.tbl_page_lb{
+    padding:5px;
+    font-weight:700;
+}
+
+.tbl_entries_lb {
+    padding: 5px;
+    font-weight: 700;
+}
+
+.tbl_sort_slct {
+    color: #df8526;
+    text-shadow: 0 0 0px black;
+}
+    .tbl_sort_slct:after {
+        content: "\00b0"
+    }
