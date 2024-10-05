@@ -1,0 +1,137 @@
+﻿@page
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Customer page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <div>
+        <div id="resultsummary"></div>
+        <form id="CreateEditCustomer" method="post" enctype="text/plain">
+
+            @Html.HiddenFor(m => m.customer.Id)
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.Forename)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.Forename)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.Forename)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.Surname)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.Surname)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.Surname)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.Organisationname)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.Organisationname)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.Organisationname)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.Contactnumber)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.Contactnumber)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.Contactnumber)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.Email)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.Email)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.address.House)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.address.House)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.address.House)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.address.Street)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.address.Street)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.address.Street)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.address.Extra)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.address.Extra)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.address.Extra)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.address.City)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.address.City)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.address.City)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.customer.address.Postcode)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.customer.address.Postcode)
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.customer.address.Postcode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" >Add/Save</button>
+                        <button type="button" onclick="ClearForm(this)">Clear</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <table id="CustomerList">
+    </table>
+</div>
