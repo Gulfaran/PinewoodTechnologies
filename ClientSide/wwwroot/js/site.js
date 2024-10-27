@@ -19,6 +19,7 @@ function getData(p, e, s) {
     }
     $.get(callapi, function (data) {
         // Call the function used to populate the table dynamically based on the information in the data returned
+        debugger
         addTable(data,'CustomerList','id')
     }, 'json');
 }
@@ -268,7 +269,7 @@ $('form').on('submit', function (e) {
     setResultMessage('')
 });
 
-// when reseting a form hidden values are left as is to prevent existing records being updated when new should be created we clear the hidden values
+// when reseting a form hidden values are left as is, to prevent existing records being updated when new should be created we clear the hidden values
 $('form').on('reset', function () {
     $("input[type='hidden']", $(this)).val('');
 });
@@ -286,6 +287,7 @@ function convertFormToJSON(form) {
         let lastKey = keys.pop();
         let deepObj = keys.reduce((acc, key) => acc[key] = acc[key] || {}, obj);
         deepObj[lastKey] = value;
+        debugger
     }
 
     // Convert form data to nested JSON object

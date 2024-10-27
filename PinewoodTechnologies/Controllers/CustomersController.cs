@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PinewoodTechnologies.Code;
 using PinewoodTechnologies.Models;
+using PinewoodTechnologies.ViewModels;
 
 namespace PinewoodTechnologies.Controllers
 {
@@ -31,7 +32,7 @@ namespace PinewoodTechnologies.Controllers
         {
             int totalpages = (int)Math.Ceiling(_context.Customers.Count()/(decimal)size);
 
-            var result = new
+            var result = new PagedDataModel<Customer>
             {
                 noofpages = totalpages,
                 defaultorder = sort,
@@ -48,16 +49,16 @@ namespace PinewoodTechnologies.Controllers
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ViewCustomer>> GetCustomer([FromRoute] int id)
+        public async Task<ActionResult> GetCustomer([FromRoute] int id)
         {
             var customer = await _context.Customers.FindAsync(id);
 
             if (customer == null)
             {
-                return NotFound();
+                return NotFound(null);
             }
 
-            return mapper.Map<ViewCustomer>(customer);
+            return Ok(mapper.Map<ViewCustomer>(customer));
         }
 
         // PUT: api/Customers/5
